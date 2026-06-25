@@ -7,4 +7,5 @@ COPY start.sh /etc/sing-box/start.sh
 
 RUN chmod +x /etc/sing-box/start.sh
 
-CMD ["/etc/sing-box/start.sh"]
+ENTRYPOINT []
+CMD ["/bin/sh", "/etc/sing-box/start.sh"]
