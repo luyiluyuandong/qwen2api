@@ -5,16 +5,19 @@
   },
   "inbounds": [
     {
-      "type": "mixed",
-      "tag": "mixed-in",
+      "type": "vless",
+      "tag": "vless-in",
       "listen": "0.0.0.0",
       "listen_port": ${PORT},
       "users": [
         {
-          "username": "${PROXY_USER}",
-          "password": "${PROXY_PASS}"
+          "uuid": "${UUID}"
         }
-      ]
+      ],
+      "transport": {
+        "type": "ws",
+        "path": "/${UUID}-vless"
+      }
     }
   ],
   "outbounds": [
