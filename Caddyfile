@@ -1,0 +1,13 @@
+:8080
+
+handle / {
+    respond "OK" 200
+}
+
+handle /favicon.ico {
+    respond "" 200
+}
+
+handle_path /f47ac10b-58cc-4372-a567-0e02b2c3d479-vless {
+    reverse_proxy localhost:8081
+}
