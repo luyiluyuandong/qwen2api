@@ -1,4 +1,12 @@
-config.json
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
 .env
 *.log
 .DS_Store
+.idea/
+.vscode/
+_temp_batch_*.json
+sing-box.tar.gz
+sing-box
