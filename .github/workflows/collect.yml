@@ -1,9 +1,7 @@
-name: New Sources Collector (independent)
+name: New Sources Collector (manual only)
 
 on:
-  schedule:
-    # 每天北京时间 23:00 (UTC 15:00) 自动执行，与主仓库错开
-    - cron: '0 15 * * *'
+  # 定时调度已取消，仅支持手动或外部指令触发
   workflow_dispatch:
 
 jobs:
