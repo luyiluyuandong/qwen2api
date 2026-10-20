@@ -1,0 +1,45 @@
+name: New Sources Collector (independent)
+
+on:
+  schedule:
+    # 每天北京时间 23:00 (UTC 15:00) 自动执行，与主仓库错开
+    - cron: '0 15 * * *'
+  workflow_dispatch:
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install sing-box (Linux)
+        run: |
+          echo "Downloading official sing-box Linux release..."
+          curl -sLo sing-box.tar.gz "https://github.com/SagerNet/sing-box/releases/download/v1.11.4/sing-box-1.11.4-linux-amd64.tar.gz"
+          tar -xzf sing-box.tar.gz --strip-components=1
+          chmod +x sing-box
+          sudo mv sing-box /usr/local/bin/
+          echo "sing-box installed successfully:"
+          sing-box version
+
+      - name: Run Collector & sing-box Deep Verifier
+        run: python collector.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add all_proxies*.txt seen_hashes.txt valid_proxies*.txt final_valid_proxies*.txt
+          git diff --cached --quiet || git commit -m "chore: new-sources daily collect and deep-verified proxies [skip ci]"
+          git push origin main
