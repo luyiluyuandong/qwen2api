@@ -1,0 +1,4 @@
+# Python >= 3.10
+# NodeHarvester is fully implemented using Python Standard Library modules
+# (asyncio, urllib, json, base64, socket, concurrent.futures, hashlib, etc.)
+# No external pip dependencies required.
